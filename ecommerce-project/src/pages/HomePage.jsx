@@ -11,10 +11,6 @@ export function HomePage() {
     .get('http://localhost:3000/api/products')
     .then(response => {
       setProducts(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching products:', error);
-    });
 }, []);
 
   
