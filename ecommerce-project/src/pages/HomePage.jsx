@@ -5,22 +5,39 @@ import './HomePage.css';
 
 export function HomePage() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
   axios
-    .get('http://localhost:3000/api/products')
+    .get('/api/products')
     .then(response => {
-      setProducts(response.data);
+      setProducts(response.data.products);
+    })
+    .catch(error => {
+      console.error('Chyba pri načítaní produktov:', error);
+    });
+
+  axios
+    .get('/api/cart-item')
+    .then(response => {
+      setCart(response.data.cartItems);
+    })
+    .catch(error => {
+      console.error('Chyba pri načítaní košíka:', error);
+    });
+
 }, []);
+
 
   
   return (
     <>
-      <Header />
+
+      <Header cart={cart} />
 
       <div className="home-page">
         <div className="products-grid">
-          {products.map((product) => {
+          {products?.map((product) => {
             return (
               <div key={product.id} className="product-container">
                 <div className="product-image-container">
