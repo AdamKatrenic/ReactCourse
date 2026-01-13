@@ -11,16 +11,16 @@ export function HomePage() {
   axios
     .get('/api/products')
     .then(response => {
-      setProducts(response.data.products);
+      setProducts(response.data);
     })
     .catch(error => {
       console.error('Chyba pri načítaní produktov:', error);
     });
 
   axios
-    .get('/api/cart-item')
+    .get('/api/cart-items')
     .then(response => {
-      setCart(response.data.cartItems);
+      setCart(response.data);
     })
     .catch(error => {
       console.error('Chyba pri načítaní košíka:', error);
