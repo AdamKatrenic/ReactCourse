@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { Header } from '../components/Header.jsx';
 import './HomePage.css';
 
-export function HomePage() {
+export function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+ 
 
   useEffect(() => {
   axios
@@ -15,15 +15,6 @@ export function HomePage() {
     })
     .catch(error => {
       console.error('Chyba pri načítaní produktov:', error);
-    });
-
-  axios
-    .get('/api/cart-items')
-    .then(response => {
-      setCart(response.data);
-    })
-    .catch(error => {
-      console.error('Chyba pri načítaní košíka:', error);
     });
 
 }, []);
