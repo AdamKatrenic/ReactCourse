@@ -3,24 +3,27 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { HomePage } from './pages/home/HomePage'
 import { CheckoutPage } from './pages/checkout/Checkout-Page'
-import { OrdersPage } from './pages/OrdersPage'
 import { TrackingPage } from './pages/TrackingPage'
 import './App.css'
 import { use } from 'react'
+import { OrdersPage } from './pages/orders/OrdersPage'
 
 function App() {
    const [cart, setCart] = useState([]);
 
    useEffect(() => {
-    axios
-    .get('/api/cart-items?expand=product')
-      .then(response => {
-        setCart(response.data);
-    })
-      .catch(error => {
-        console.error('Chyba pri načítaní košíka:', error);
-    });
-   }, []);
+  const fetchAppData = async () => {
+    try {
+      const response = await axios.get('/api/cart-items?expand=product');
+      setCart(response.data);
+    } catch (error) {
+      console.error('Chyba pri načítaní košíka:', error);
+    }
+  };
+
+  fetchAppData();
+}, []);
+
    
 
   return (
