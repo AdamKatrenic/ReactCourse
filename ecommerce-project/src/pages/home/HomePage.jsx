@@ -4,7 +4,7 @@ import { Header } from '../../components/Header.jsx';
 import { ProductsGrid } from '../home/ProductsGrid.jsx';
 import './HomePage.css';
 
-export function HomePage({ cart }) {
+export function HomePage({ cart, loadCart }) {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
 
@@ -27,7 +27,7 @@ export function HomePage({ cart }) {
       <Header cart={cart} />
 
       <div className="home-page">
-        {error ? <p>{error}</p> : <ProductsGrid products={products} />}
+        {error ? <p>{error}</p> : <ProductsGrid products={products} loadCart={loadCart} />}
       </div>
     </>
   );

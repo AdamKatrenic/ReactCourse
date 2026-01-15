@@ -1,6 +1,10 @@
+import axios from 'axios';
+import { use, useState } from 'react';
 import { formantMoney } from '../../utils/money.js';
 
-export function ProductsGrid({ products }) {
+export function ProductsGrid({ products, loadCart }) {
+    const [quantity, setQuantity] = useState(1);
+
     return (
         <div className="products-grid">
             {products?.map((product) => {
@@ -28,7 +32,11 @@ export function ProductsGrid({ products }) {
                         </div>
 
                         <div className="product-quantity-container">
-                            <select>
+                            <select value={quantity} onChange={(event) => {
+                                const quantitySelected = Number(event.target.value);
+                                setQuantity(quantitySelected);
+                                console.log(quantitySelected);
+                            }}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -49,7 +57,14 @@ export function ProductsGrid({ products }) {
                             Added
                         </div>
 
-                        <button className="add-to-cart-button button-primary">
+                        <button className="add-to-cart-button button-primary" 
+                            onClick={async () => {
+                                await axios.post('/api/cart-items',{
+                                    productId: product.id,
+                                    quantity: 1
+                                })
+                                await loadCart();
+                        }}>
                             Add to Cart
                         </button>
                     </div>
