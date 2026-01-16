@@ -4,7 +4,7 @@ import { formantMoney } from '../../utils/money.js';
 
 export function ProductsGrid({ products, loadCart }) {
     const [quantity, setQuantity] = useState(1);
-
+//Delete this line
     return (
         <div className="products-grid">
             {products?.map((product) => {
