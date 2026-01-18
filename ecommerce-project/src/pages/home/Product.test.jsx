@@ -1,4 +1,4 @@
-import { it, expect, describe, vi } from 'vitest';
+import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
@@ -9,6 +9,10 @@ vi.mock('axios');
 const mockedAxios = vi.mocked(axios, true);
 
 describe('Product Component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('displays product details correctly', () => {
     const product = {
       id: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -61,9 +65,7 @@ describe('Product Component', () => {
     render(<Product product={product} loadCart={loadCart} />);
 
     const user = userEvent.setup();
-    const addToCartButton = screen.getByTestId('add-to-cart-button');
-
-    await user.click(addToCartButton);
+    await user.click(screen.getByTestId('add-to-cart-button'));
 
     expect(mockedAxios.post).toHaveBeenNthCalledWith(
       1,
