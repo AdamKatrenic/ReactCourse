@@ -32,3 +32,4 @@ export function HomePage({ cart, loadCart }) {
     </>
   );
 }
+//do not delete this line
